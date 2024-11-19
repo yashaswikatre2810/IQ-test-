@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQ Test</title>
+    <style>
+        .question {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        let timer;
+        let startTime;
+
+        function startTimer() {
+            startTime = new Date().getTime();
+            timer = setInterval(updateTime, 1000);
+        }
+
+        function updateTime() {
+            const now = new Date().getTime();
+            const elapsed = now - startTime;
+            document.getElementById('timer').innerText = formatTime(elapsed);
+        }
+
+        function formatTime(milliseconds) {
+            const totalSeconds = Math.floor(milliseconds / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes}m ${seconds}s`;
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            const now = new Date().getTime();
+            const elapsed = now - startTime;
+            document.getElementById('timeTaken').value = elapsed / 1000; // Store time in seconds
+        }
+
+        window.onload = startTimer;
+    </script>
+</head>
+<body>
+    <form action="submit.php" method="post" onsubmit="stopTimer()">
+        Name: <input type="text" name="name" required><br>
+        Mobile: <input type="text" name="mobile" required><br>
+        Age: <input type="number" name="age" required><br>
+        <div id="timer">0m 0s</div>
+
+        <div class="questions">
+            <!-- Generate 30 questions with correct answers as hidden inputs -->
+            <div class="question">1. Question 1: <input type="radio" name="q1" value="a"> a) Option A <input type="radio" name="q1" value="b"> b) Option B <input type="radio" name="q1" value="c"> c) Option C <input type="radio" name="q1" value="d"> d) Option D
+                <input type="hidden" name="correct_q1" value="a">
+            </div>
+            <div class="question">2. Question 2: <input type="radio" name="q2" value="a"> a) Option A <input type="radio" name="q2" value="b"> b) Option B <input type="radio" name="q2" value="c"> c) Option C <input type="radio" name="q2" value="d"> d) Option D
+                <input type="hidden" name="correct_q2" value="b">
+            </div>
+            <div class="question">3. Question 3: <input type="radio" name="q3" value="a"> a) Option A <input type="radio" name="q3" value="b"> b) Option B <input type="radio" name="q3" value="c"> c) Option C <input type="radio" name="q3" value="d"> d) Option D
+                <input type="hidden" name="correct_q3" value="c">
+            </div>
+            <!-- Add similar blocks for questions 4 to 30 -->
+            <div class="question">4. Question 4: <input type="radio" name="q4" value="a"> a) Option A <input type="radio" name="q4" value="b"> b) Option B <input type="radio" name="q4" value="c"> c) Option C <input type="radio" name="q4" value="d"> d) Option D
+                <input type="hidden" name="correct_q4" value="d">
+            </div>
+            <div class="question">5. Question 5: <input type="radio" name="q5" value="a"> a) Option A <input type="radio" name="q5" value="b"> b) Option B <input type="radio" name="q5" value="c"> c) Option C <input type="radio" name="q5" value="d"> d) Option D
+                <input type="hidden" name="correct_q5" value="a">
+            </div>
+            <!-- Repeat for all 30 questions -->
+            <div class="question">30. Question 30: <input type="radio" name="q30" value="a"> a) Option A <input type="radio" name="q30" value="b"> b) Option B <input type="radio" name="q30" value="c"> c) Option C <input type="radio" name="q30" value="d"> d) Option D
+                <input type="hidden" name="correct_q30" value="a">
+            </div>
+        </div>
+
+        <input type="hidden" name="timeTaken" id="timeTaken">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
